@@ -8,7 +8,9 @@
         <div v-else-if="data">
           <section v-for="d in data.getBooks" :key="d.id">
             <router-link :to="{ name: 'detail', params: { id: d.id } }">
-              <Book :data="d" />
+              <div>
+                <Book :data="d" />
+              </div>
             </router-link>
           </section>
           <Book />
