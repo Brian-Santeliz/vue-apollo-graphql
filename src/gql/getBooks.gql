@@ -1,0 +1,8 @@
+query getAllBooks {
+getBooks{
+  id
+  name
+  year
+  author
+}
+}
