@@ -2,6 +2,7 @@
   <ApolloMutation
     :mutation="require('../gql/createBook.gql')"
     :variables="{ input }"
+    :update="updateForm"
     @done="onDone"
   >
     <template v-slot="{ mutate, loading, error }">
@@ -32,6 +33,8 @@
 </template>
 
 <script>
+import getBooks from "../gql/getBooks.gql";
+
 export default {
   name: "FormUpdate",
   data() {
@@ -44,13 +47,25 @@ export default {
     };
   },
   methods: {
+    updateForm(store, { data: { createBook } }) {
+      const data = store.readQuery({ query: getBooks });
+      data.getBooks.push(createBook);
+      store.writeQuery({ query: getBooks, data });
+    },
     onDone() {
       (this.input.name = ""),
         (this.input.year = ""),
         (this.input.author = ""),
-        (window.location.href = "/");
+        this.$router.push("/");
     },
   },
+  /* 
+  onDONE recibe una argumento que es el resultado de la mutaciion
+*/
+  // (this.input.name = ""),
+  //   (this.input.year = ""),
+  //   (this.input.author = ""),
+  //   this.$router.push("/");
 };
 </script>
 
