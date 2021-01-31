@@ -16,7 +16,7 @@
             <button @click="handleDelete()">Eliminar</button>
           </h1>
         </div>
-        <div v-else>Error obtenidno la data</div>
+        <div v-else>Cargando...</div>
       </template>
     </ApolloQuery>
     <h1>
@@ -38,11 +38,6 @@
 
 <script>
 import deleteBook from "../gql/deleteBook.gql";
-
-/* Usar apollo query con variable
-
-    y mdbbootstrap
-*/
 export default {
   name: "SingleBook",
   data() {

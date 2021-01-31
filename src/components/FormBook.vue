@@ -56,6 +56,7 @@ export default {
           variables: {
             input: this.input,
           },
+          fetchPolicy: "cache-and-network",
         })
         .then((resul) => {
           console.log(resul);
@@ -69,6 +70,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
