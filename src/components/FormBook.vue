@@ -21,7 +21,7 @@
             placeholder="write de author"
             v-model="input.author"
           />
-          <button type="submit" @click="addBook()">Enviar</button>
+          <button type="submit">Enviar</button>
         </form>
       </mdbCol>
     </mdbRow>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+/* Hacer que el component obtenga la data usando el metodo update. */
 import { mdbContainer, mdbRow, mdbCol } from "mdbvue";
 import createBook from "../gql/createBook.gql";
 export default {

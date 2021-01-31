@@ -7,11 +7,13 @@
         <div v-else-if="error">ocurrio un error obteniendo la data</div>
         <div v-else-if="data">
           <section v-for="d in data.getBooks" :key="d.id">
-            <Book :data="d" />
+            <router-link :to="{ name: 'detail', params: { id: d.id } }">
+              <Book :data="d" />
+            </router-link>
           </section>
           <Book />
         </div>
-        <div v-else>ocurrio un error obteniendo la data</div>
+        <div v-else>Cargando...</div>
       </template>
     </ApolloQuery>
     <FormBook />
