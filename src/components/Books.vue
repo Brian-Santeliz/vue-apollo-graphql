@@ -20,6 +20,7 @@
       </template>
     </ApolloQuery>
     <FormBook />
+    <ComponentChild type="text" name="" id="" @crerevento="event" />
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import Book from "./Book.vue";
 import FormBook from "./FormBook.vue";
 import deleteBook from "../gql/deleteBook.gql";
 import getBooks from "../gql/getBooks.gql";
+import ComponentChild from "./ComponentChild";
 export default {
   data() {
     return {
@@ -38,6 +40,7 @@ export default {
   components: {
     Book,
     FormBook,
+    ComponentChild,
   },
   methods: {
     deleteBook(id) {
@@ -65,6 +68,9 @@ export default {
           this.loading = false;
         })
         .catch((error) => console.log(error));
+    },
+    event(value) {
+      console.log(value);
     },
   },
 };
