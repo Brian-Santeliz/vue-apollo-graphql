@@ -124,11 +124,11 @@ export default {
       this.$router.push("/");
     },
     updateCache(store, { data: { deleteBook } }) {
-      const data = store.readQuery({
+      const { getBooks: datosQuery } = store.readQuery({
         query: getBooks,
       });
       const dataAfterDelete = {
-        getBooks: data.getBooks.filter((book) => book.id !== deleteBook.id),
+        getBooks: datosQuery.filter((book) => book.id !== deleteBook.id),
       };
       store.writeQuery({
         query: getBooks,
