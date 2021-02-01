@@ -65,9 +65,13 @@ export default {
       const query = {
         query: getBooks,
       };
-      const data = store.readQuery(query);
-      data.getBooks.push(createBook);
-      store.writeQuery({ ...query, data });
+      const { getBooks: allBooks } = store.readQuery(query);
+      store.writeQuery({
+        ...query,
+        data: {
+          getBooks: [...allBooks, createBook],
+        },
+      });
     },
     onDone() {
       (this.input.name = ""), (this.input.year = ""), (this.input.author = "");
