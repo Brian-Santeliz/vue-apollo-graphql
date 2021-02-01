@@ -13,12 +13,48 @@
             <p><strong> Nombre: </strong>{{ data.getBookId.name }}</p>
             <p><strong> Year: </strong>{{ data.getBookId.year }}</p>
             <p><strong> Autor: </strong>{{ data.getBookId.author }}</p>
-            <button @click="handleDelete()">Eliminar</button>
+            <ApolloMutation
+              :mutation="require('../gql/deleteBook.gql')"
+              :variables="{ id }"
+              @done="eliminado"
+            >
+              <template v-slot="{ mutate, error, loading }">
+                <button @click="mutate()" :disabled="loading">Eliminar</button>
+                <p v-if="error">{{ error }}</p>
+              </template>
+            </ApolloMutation>
+            <button type="submit" @click="selecionar(data.getBookId)">
+              Seleccionar
+            </button>
           </h1>
         </div>
         <div v-else>Cargando...</div>
       </template>
     </ApolloQuery>
+    <div v-if="editar">
+      <ApolloMutation
+        :mutation="require('../gql/updateBook.gql')"
+        :variables="{ input }"
+        @done="onDone"
+      >
+        <template v-slot="{ mutate, error, loading }">
+          <form @submit.prevent="mutate()">
+            <input
+              type="text"
+              placeholder="nombre"
+              v-model="input.name"
+            /><input
+              type="number"
+              placeholder="año"
+              v-model="input.year"
+            /><input type="text" placeholder="autor" v-model="input.author" />
+            <button type="submit" :disabled="loading">Actualizar</button>
+            <p v-if="error">{{ error }}</p>
+          </form>
+        </template>
+      </ApolloMutation>
+    </div>
+
     <h1>
       <!-- 
           Utilizando el metodo this.$apollo.mutate
@@ -37,12 +73,18 @@
 </template>
 
 <script>
-import deleteBook from "../gql/deleteBook.gql";
+// import deleteBook from "../gql/deleteBook.gql";
 export default {
   name: "SingleBook",
   data() {
     return {
       id: null,
+      editar: false,
+      input: {
+        name: "",
+        year: "",
+        author: "",
+      },
     };
   },
   created() {
@@ -53,20 +95,35 @@ export default {
     getId() {
       this.id = this.$route.params.id;
     },
-    handleDelete() {
-      this.$apollo
-        .mutate({
-          mutation: deleteBook,
-          variables: {
-            id: this.$route.params.id,
-          },
-        })
-        .then(() => {
-          window.location.href = "/";
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+    selecionar(data) {
+      const { name, year, author } = data;
+      this.input.name = name;
+      this.input.year = year;
+      this.input.author = author;
+      this.input.id = this.id;
+      this.editar = true;
+    },
+    // handleDelete() {
+    //   this.$apollo
+    //     .mutate({
+    //       mutation: deleteBook,
+    //       variables: {
+    //         id: this.$route.params.id,
+    //       },
+    //     })
+    //     .then(() => {
+    //       window.location.href = "/";
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // },
+    onDone() {
+      this.editar = false;
+      this.$router.push("/");
+    },
+    eliminado() {
+      this.$router.push("/");
     },
   },
   //   data() {
