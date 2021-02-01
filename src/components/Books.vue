@@ -8,9 +8,10 @@
         <div v-else-if="data">
           <section v-for="d in data.getBooks" :key="d.id">
             <router-link :to="{ name: 'detail', params: { id: d.id } }">
-              <div>
-                <Book :data="d" />
-              </div>
+              <Book :data="d" />
+              <!-- <button @click="deleteBook(d.id)" :disabled="loading">
+                Eliminar
+              </button> -->
             </router-link>
           </section>
           <Book />
@@ -25,11 +26,46 @@
 <script>
 import Book from "./Book.vue";
 import FormBook from "./FormBook.vue";
+import deleteBook from "../gql/deleteBook.gql";
+import getBooks from "../gql/getBooks.gql";
 export default {
+  data() {
+    return {
+      loading: false,
+    };
+  },
   name: "Books",
   components: {
     Book,
     FormBook,
+  },
+  methods: {
+    deleteBook(id) {
+      this.loading = true;
+      this.$apollo
+        .mutate({
+          mutation: deleteBook,
+          variables: { id },
+          update(store, { data: { deleteBook } }) {
+            const data = store.readQuery({
+              query: getBooks,
+            });
+            const datAfterDelete = {
+              getBooks: data.getBooks.filter(
+                (book) => book.id !== deleteBook.id
+              ),
+            };
+            store.writeQuery({
+              query: getBooks,
+              data: datAfterDelete,
+            });
+          },
+        })
+        .then(() => {
+          this.loading = false;
+        })
+        .catch((error) => console.log(error));
+    },
   },
 };
 </script>

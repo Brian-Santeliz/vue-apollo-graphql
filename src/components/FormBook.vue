@@ -1,7 +1,7 @@
 <template>
   <mdbContainer class="my-4">
     <mdbRow>
-      <mdbCol md="12">
+      <mdbCol md="6">
         <ApolloMutation
           :mutation="require('../gql/createBook.gql')"
           :variables="{ input }"
