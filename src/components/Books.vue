@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Hola mundo desde Vue-Apollo</h1>
+    <h1 class="text-uppercase">Hola mundo desde Vue-Apollo</h1>
     <ApolloQuery :query="require('../gql/getBooks.gql')">
       <template v-slot="{ result: { loading, error, data } }">
         <div v-if="loading">loading...</div>

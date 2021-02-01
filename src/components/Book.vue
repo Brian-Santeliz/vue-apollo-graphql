@@ -1,6 +1,6 @@
 <template>
   <div v-if="data">
-    <p><strong>Nombre</strong>:{{ data.name }}</p>
+    <p><strong class="text-uppercase">Nombre</strong>:{{ data.name }}</p>
     <p><strong>Año</strong>:{{ data.year }}</p>
     <p><strong>Autor</strong>:{{ data.author }}</p>
     <hr />

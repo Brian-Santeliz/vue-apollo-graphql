@@ -6,7 +6,7 @@ import VueRouter from "vue-router";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbvue/lib/css/mdb.min.css";
+import "mdbvue/build/css/mdb.css";
 
 Vue.use(VueRouter);
 new Vue({
