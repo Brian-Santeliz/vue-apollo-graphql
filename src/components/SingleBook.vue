@@ -16,6 +16,7 @@
             <ApolloMutation
               :mutation="require('../gql/deleteBook.gql')"
               :variables="{ id }"
+              :update="updateCache"
               @done="eliminado"
             >
               <template v-slot="{ mutate, error, loading }">
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-// import deleteBook from "../gql/deleteBook.gql";
+import getBooks from "../gql/getBooks.gql";
 export default {
   name: "SingleBook",
   data() {
@@ -121,6 +122,18 @@ export default {
     onDone() {
       this.editar = false;
       this.$router.push("/");
+    },
+    updateCache(store, { data: { deleteBook } }) {
+      const data = store.readQuery({
+        query: getBooks,
+      });
+      const dataAfterDelete = {
+        getBooks: data.getBooks.filter((book) => book.id !== deleteBook.id),
+      };
+      store.writeQuery({
+        query: getBooks,
+        data: dataAfterDelete,
+      });
     },
     eliminado() {
       this.$router.push("/");
