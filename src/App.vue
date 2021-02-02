@@ -1,7 +1,6 @@
 <template>
-  <div id="app">
+  <div>
     <Navbar />
-    <img alt="Vue logo" src="./assets/logo.png" />
     <router-view />
   </div>
 </template>
@@ -18,14 +17,4 @@ export default {
 </script>
 
 <style>
-body {
-  background: #2c3e50 !important;
-  color: #fff !important;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
 </style>

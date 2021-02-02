@@ -6,37 +6,52 @@
     @done="onDone"
   >
     <template v-slot="{ mutate, loading, error }">
-      <form @submit.prevent="mutate()">
-        <input
-          type="text"
-          name=""
-          v-model="input.name"
-          placeholder="Agrega el nombre del libro"
-        />
-        <input
-          type="number"
-          name=""
-          v-model="input.year"
-          placeholder="Agregar el año del libto"
-        />
-        <input
-          type="text"
-          name=""
-          v-model="input.author"
-          placeholder="Agregar el autor del libro"
-        />
-        <button :disabled="loading" role="button" type="submit">Enviar</button>
-      </form>
-      <p v-if="error">Error: {{ error }}</p>
+      <mdbContainer>
+        <mdbRow>
+          <mdbCol md="6" lg="12">
+            <form @submit.prevent="mutate()">
+              <mdbInput
+                type="text"
+                name=""
+                v-model="input.name"
+                placeholder="Agrega el nombre del libro"
+              />
+              <mdbInput
+                type="number"
+                name=""
+                v-model="input.year"
+                placeholder="Agregar el año del libto"
+              />
+              <mdbInput
+                type="text"
+                name=""
+                v-model="input.author"
+                placeholder="Agregar el autor del libro"
+              />
+              <mdbBtn :disabled="loading" role="button" type="submit">
+                Enviar
+              </mdbBtn>
+            </form>
+            <p v-if="error">Error: {{ error }}</p>
+          </mdbCol>
+        </mdbRow>
+      </mdbContainer>
     </template>
   </ApolloMutation>
 </template>
 
 <script>
 import getBooks from "../gql/getBooks.gql";
-
+import { mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn } from "mdbvue";
 export default {
   name: "FormUpdate",
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    mdbInput,
+    mdbBtn,
+  },
   data() {
     return {
       input: {
@@ -44,6 +59,7 @@ export default {
         year: "",
         author: "",
       },
+      modal: false,
     };
   },
   methods: {

@@ -8,6 +8,9 @@
         <router-link to="/add">
           <mdb-nav-item active> Form </mdb-nav-item>
         </router-link>
+        <router-link to="/modal">
+          <mdb-nav-item active> Modal </mdb-nav-item>
+        </router-link>
       </mdb-navbar-nav>
     </mdb-navbar-toggler>
   </mdb-navbar>

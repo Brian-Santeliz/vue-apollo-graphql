@@ -5,11 +5,18 @@ Vue.use(VueRouter);
 import HelloWorld from "../HelloWorld.vue";
 import FormUpdate from "../FormUpdate.vue";
 import SingleBook from "../SingleBook.vue";
+import ModalComponent from "../ModalComponent.vue";
+
 const routes = [
   {
     path: "/",
     name: "home",
     component: HelloWorld,
+  },
+  {
+    path: "/modal",
+    name: "modal",
+    component: ModalComponent,
   },
   {
     path: "/add",
